@@ -1,3 +1,4 @@
+//Lang's version of Jason's Chess
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -22,7 +23,7 @@ public class Chess extends JApplet {
 
  int[][] board = new int[8][8];
  private int selectedPiece = -1;
- String previousPos = "1 1";
+ private int startX,startY = 0;
  ArrayList<String> posList= new ArrayList<>();
     //method that is auto called
     public void init() {
@@ -120,7 +121,6 @@ public class Chess extends JApplet {
 	 int x = -1;
 	  int y = -1;
 	  String space ="";
-	  previousPos = "";
 	  selectedPiece =-5;
 	  boolean bothlegal = false;
 	  if(e.getX() > 50 && e.getX() <=85) {
@@ -214,10 +214,12 @@ public class Chess extends JApplet {
 	  }
 	  
   }
+	  
+	  startX = x;
+	  startY = y;
   if(bothlegal)
   System.out.println(space);
   System.out.println(board[y][x]);
-  previousPos = y + " " + x;
   if(board[y][x] == -1 ) { 
 	  System.out.println("Picked a -Pawn");
 	  selectedPiece = -1;
@@ -225,24 +227,12 @@ public class Chess extends JApplet {
   else if(board[y][x] == 1) {
 	  System.out.println("Picked a Pawn");
 	  selectedPiece =  1;
-	  
-	  
-	  if(x+1 <= 7 && y+1 <=7 && board[y+1][x+1] < 0 && board[y+1][x+1] >=-6 ){
-		  System.out.println(y+" " + x);
-		  posList.add((y+1)+ " " + (x+1));
-	  }
-	  if(y > 0 && x > 0 && y+1 <=7 && board[y+1][x-1] < 0 && board[y+1][x-1] >=-6 ){
-		  posList.add((y+1)+ " " + (x-1));
-		  System.out.println(y+" " + x);
-		  }
-	  if(x <= 7 && y <=7 && board[y+1][x] == 0){
-		  posList.add((y+1)+ " " + (x));
-		  System.out.println("FRONT OF: " + (y+1)+" " + x);
-		  }
+
 	  
 	  
 	  
   }
+  
   
  }
 
@@ -339,38 +329,78 @@ public class Chess extends JApplet {
    y=7;
   }
   else {
-   bothlegal = false;
+   
   }
   
   }
   if(bothlegal) {
-   System.out.println(space);
-   System.out.println(board[y][x]);
-   for(int i = 0; i < posList.size(); i++) {
-	  System.out.println("Looking for: " + (y + " " + x) + "\t Found: " + posList.get(i));
-	   if((y+" " + x).equals(posList.get(i))) {
-		   board[y][x] = selectedPiece;
-		   String[] previous = previousPos.split(" ");
-		   board[Integer.parseInt(previous[0])][Integer.parseInt(previous[1])] = 0;
-		   previousPos = "";
-	   }
-   }
-   
-   selectedPiece =-5;
-   posList.clear();
-   x=-1;
-   y=-1;
-   
-   for(int j = 0; j < 8; j++) {
-       for(int k = 0; k < 8; k++) {
-        System.out.print(board[j][k] +", ");
-       }
-       System.out.println();
-      }
+	  
+	  //System.out.println(space);
+	  //System.out.println(board[y][x]);
+	  
+	  //WhitePawn
+	  if(board[startY][startX]== 1){
+	  		//Pawn First Move
+	  		boolean firstMove = false;
+	  		if(startY == 6||startY == 1)
+	  			firstMove = true;
+	  	  
+	  		if(y==startY+1&&x==startX){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else if(board[y][x]<0&&((y==startY+1&&x==startX+1)||y==startY+1&&x==startX-1)){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else if(firstMove == true&&y==startY+2&&x==startX){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else{
+	  			board[startY][startX]=selectedPiece;
+	  		}
+	  		firstMove = false;
+	  		System.out.println(firstMove);
+	  	}
+	  
+	  	//black pawn if statements\
+	    //First Pawn move
+	  if(board[startY][startX]== -1){
+	  		//Pawn First Move
+	  		boolean firstMove = false;
+	  		if(startY == 6||startY == 1)
+	  			firstMove = true;
+	  	  
+	  		if(y==startY-1&&x==startX){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else if(board[y][x]>0&&((y==startY-1&&x==startX+1)||y==startY-1&&x==startX-1)){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else if(firstMove == true&&y==startY-2&&x==startX){
+	  			board[y][x] = selectedPiece;
+	  			board[startY][startX]=0;
+	  		}else{
+	  			board[startY][startX]=selectedPiece;
+	  		}
+	  		firstMove = false;
+	  		System.out.println(firstMove);
+	  	}
+		  
+  		}
+  		
+	  	
+	  	//print board
+  		
+	  	for(int j = 0; j < 8; j++) {
+	  		for(int k = 0; k < 8; k++) {
+	  			System.out.print(board[j][k] +", ");
+	  		}
+	  		System.out.println();
+	  	}
 
+	  	System.out.println("------------");
    
-  }
- }
+  	}
+}
 }
 
 
@@ -379,4 +409,3 @@ public class Chess extends JApplet {
 
 
 
-}
