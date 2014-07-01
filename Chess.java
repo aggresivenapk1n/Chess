@@ -1,4 +1,3 @@
-//Lang's version of Jason's Chess
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -121,7 +120,6 @@ public class Chess extends JApplet {
 	 int x = -1;
 	  int y = -1;
 	  String space ="";
-	  selectedPiece =-5;
 	  boolean bothlegal = false;
 	  if(e.getX() > 50 && e.getX() <=85) {
 	   space +=("A");
@@ -386,7 +384,31 @@ public class Chess extends JApplet {
 	  	}
 		  
   		}
-  		
+  //black knight
+  		if(board[startY][startX]==-2&&!(board[y][x]<0)){
+  			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
+	  			board[y][x] = -2;
+	  			board[startY][startX]=0;
+  			}
+  			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
+  				board[y][x] = -2;
+	  			board[startY][startX]=0;}
+  			}else{
+  				board[startY][startX]=board[startY][startX];
+  			}
+  	//white knights association of americuh
+  		if(board[startY][startX]==2&&!(board[y][x]>0)){
+  			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
+	  			board[y][x] = 2;
+	  			board[startY][startX]=0;
+  			}
+  			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
+  				board[y][x] = 2;
+	  			board[startY][startX]=0;}
+  			}else{
+  				board[startY][startX]=board[startY][startX];
+  			}
+  		selectedPiece = 0;
 	  	
 	  	//print board
   		
