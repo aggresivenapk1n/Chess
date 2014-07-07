@@ -1,3 +1,4 @@
+//Lang's version of Jason's Chess
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -23,7 +24,9 @@ public class Chess extends JApplet {
  int[][] board = new int[8][8];
  private int selectedPiece = -1;
  private int startX,startY = 0;
- ArrayList<String> posList= new ArrayList<>();
+ ArrayList<String> legalMoves = new ArrayList<String>();
+ 
+
     //method that is auto called
     public void init() {
 
@@ -95,31 +98,32 @@ public class Chess extends JApplet {
   private class MAdapter implements MouseListener{
 
 
- @Override
+
  public void mouseClicked(MouseEvent e) {
   // TODO Auto-generated method stub
   
  }
 
- @Override
+
  public void mouseEntered(MouseEvent e) {
   // TODO Auto-generated method stub
   
  }
 
- @Override
+
  public void mouseExited(MouseEvent e) {
   // TODO Auto-generated method stub
   
  }
 
- @Override
+
  public void mousePressed(MouseEvent e) {
   // TODO Auto-generated method stub
   //System.out.println("X position = " +e.getX()  + "\t Y position = " + e.getY());
 	 int x = -1;
 	  int y = -1;
 	  String space ="";
+	  selectedPiece =-5;
 	  boolean bothlegal = false;
 	  if(e.getX() > 50 && e.getX() <=85) {
 	   space +=("A");
@@ -219,22 +223,512 @@ public class Chess extends JApplet {
   System.out.println(space);
   System.out.println(board[y][x]);
   if(board[y][x] == -1 ) { 
-	  System.out.println("Picked a -Pawn");
+	  //System.out.println("Picked a -Pawn");
 	  selectedPiece = -1;
-  }
-  else if(board[y][x] == 1) {
-	  System.out.println("Picked a Pawn");
+  }else if(board[y][x] == 1) {
+	  //System.out.println("Picked a Pawn");
 	  selectedPiece =  1;
+	  
+	  //rooks
+  }else if(board[y][x] == 4){
+	  selectedPiece = 4;
+	  System.out.println("Rook@");
 
+	  int newX = startX;
+	  int newY = startY+1;
+	  while(newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+	  }
+	  if(newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX;
+	  newY = startY-1;
+	  while(newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+	  }
+	  if(newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX+1;
+	  newY = startY;
+	  while(newX<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX++;
+	  }
+	  if(newX<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX-1;
+	  newY = startY;
+	  while(newX>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX--;
+	  }
+	  if(newX>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+  }//End Pos Rook
+  else if(board[y][x] == -4){
+	  selectedPiece = -4;
+	  System.out.println("-Rook");
+
+	  int newX = startX;
+	  int newY = startY-1;
+	  while(newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+	  }
+	  if(newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX;
+	  newY = startY-1;
+	  while(newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+	  }
+	  if(newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX+1;
+	  newY = startY;
+	  while(newX<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX++;
+	  }
+	  if(newX<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX-1;
+	  newY = startY;
+	  while(newX>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX--;
+	  }
+	  if(newX>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+  }//End -Rooks
+  else if(board[y][x]==3){
+	  selectedPiece = 3;
+	  
+	  int newX = startX+1;
+	  int newY = startY+1;
+	  
+	  while(newX<=7&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX++;
+	  }
+	  if(newX<=7&&newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY-1;
+	  
+	  while(newX>=0&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX--;
+	  }
+	  if(newX>=0&&newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX+1;
+	  newY = startY-1;
+	  
+	  while(newX<=7&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX++;
+	  }
+	  if(newX<=7&&newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY+1;
+	  
+	  while(newX>=0&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX--;
+	  }
+	  if(newX>=0&&newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+  }//end white bishop
+  else if(board[y][x]==-3){
+	  selectedPiece = -3;
+	  
+	  int newX = startX+1;
+	  int newY = startY+1;
+	  
+	  while(newX<=7&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX++;
+	  }
+	  if(newX<=7&&newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY-1;
+	  
+	  while(newX>=0&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX--;
+	  }
+	  if(newX>=0&&newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX+1;
+	  newY = startY-1;
+	  
+	  while(newX<=7&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX++;
+	  }
+	  if(newX<=7&&newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY+1;
+	  
+	  while(newX>=0&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX--;
+	  }
+	  if(newX>=0&&newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+  }//end black bishops
+
+  else if(board[y][x]==-5){
+	  selectedPiece = -5;
+	  
+	  int newX = startX+1;
+	  int newY = startY+1;
+	  
+	  while(newX<=7&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX++;
+	  }
+	  if(newX<=7&&newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY-1;
+	  
+	  while(newX>=0&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX--;
+	  }
+	  if(newX>=0&&newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX+1;
+	  newY = startY-1;
+	  
+	  while(newX<=7&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX++;
+	  }
+	  if(newX<=7&&newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY+1;
+	  
+	  while(newX>=0&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX--;
+	  }
+	  if(newX>=0&&newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY-1;
+	  while(newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+	  }
+	  if(newY<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX;
+	  newY = startY-1;
+	  while(newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+	  }
+	  if(newY>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX+1;
+	  newY = startY;
+	  while(newX<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX++;
+	  }
+	  if(newX<=7&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX-1;
+	  newY = startY;
+	  while(newX>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX--;
+	  }
+	  if(newX>=0&&board[newY][newX]>0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+  }//end black queen
+  else if(board[y][x]==5){
+	  selectedPiece = 5;
+	  int newX = startX+1;
+	  int newY = startY+1;
+	  
+	  while(newX<=7&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX++;
+	  }
+	  if(newX<=7&&newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY-1;
+	  
+	  while(newX>=0&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX--;
+	  }
+	  if(newX>=0&&newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX+1;
+	  newY = startY-1;
+	  
+	  while(newX<=7&&newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+		  newX++;
+	  }
+	  if(newX<=7&&newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX-1;
+	  newY = startY+1;
+	  
+	  while(newX>=0&&newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+		  newX--;
+	  }
+	  if(newX>=0&&newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY+1;
+	  while(newY<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY++;
+	  }
+	  if(newY<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX;
+	  newY = startY-1;
+	  while(newY>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newY--;
+	  }
+	  if(newY>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX+1;
+	  newY = startY;
+	  while(newX<=7&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX++;
+	  }
+	  if(newX<=7&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+	  newX = startX-1;
+	  newY = startY;
+	  while(newX>=0&&board[newY][newX]==0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+		  
+		  newX--;
+	  }
+	  if(newX>=0&&board[newY][newX]<0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("2Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+  }//end white queen
+  else if(board[y][x]==6){
+	  selectedPiece = 6;
+	  int newX = startX+1;
+	  int newY = startY;
+	  
+	  if(board[newY][newX] == 0&&newX>=0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX - 1;
+	  newY = startY;
+	  
+	  if(board[newY][newX] ==0&& newX>= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY+1;
+	  
+	  if(board[newY][newX] == 0&&newY>=0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY-1;
+	  
+	  if(board[newY][newX] ==0&& newY>= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
 	  
 	  
 	  
-  }
+  }//end white king
+	  
+	  
+  
   
   
  }
 
- @Override
+ 
  public void mouseReleased(MouseEvent e) {
   boolean bothlegal = false;
   String space = "";
@@ -381,34 +875,25 @@ public class Chess extends JApplet {
 	  		}
 	  		firstMove = false;
 	  		System.out.println(firstMove);
+	  }
+	  	
+	  System.out.println("Legal Moves String Size " + legalMoves.size());
+	  	for(int i = 0;i<legalMoves.size();i++){
+	  		System.out.println("Looking For (" + y+ "," +x+") Found: "+ legalMoves.get(i));
+	  		String[] strA = legalMoves.get(i).split(" ");
+	  		int newY = Integer.parseInt(strA[0]);
+	  		int newX = Integer.parseInt(strA[1]);
+	  		if(newX==x&&newY==y){
+	  			board[y][x]= selectedPiece;
+	  			board[startY][startX]=0;
+	  			break;
+	  			
+	  		}
 	  	}
-		  
-  		}
-  //black knight
-  		if(board[startY][startX]==-2&&!(board[y][x]<0)){
-  			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
-	  			board[y][x] = -2;
-	  			board[startY][startX]=0;
-  			}
-  			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
-  				board[y][x] = -2;
-	  			board[startY][startX]=0;}
-  			}else{
-  				board[startY][startX]=board[startY][startX];
-  			}
-  	//white knights association of americuh
-  		if(board[startY][startX]==2&&!(board[y][x]>0)){
-  			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
-	  			board[y][x] = 2;
-	  			board[startY][startX]=0;
-  			}
-  			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
-  				board[y][x] = 2;
-	  			board[startY][startX]=0;}
-  			}else{
-  				board[startY][startX]=board[startY][startX];
-  			}
-  		selectedPiece = 0;
+	  	
+	  	
+		}
+  		
 	  	
 	  	//print board
   		
@@ -420,11 +905,11 @@ public class Chess extends JApplet {
 	  	}
 
 	  	System.out.println("------------");
+	  	legalMoves.clear();
    
-  	}
+  	}//End Mouse Released
 }
 }
-
 
 
 
