@@ -692,36 +692,117 @@ public class Chess extends JApplet {
 	  int newX = startX+1;
 	  int newY = startY;
 	  
-	  if(board[newY][newX] == 0&&newX>=0){
+	  if(board[newY][newX] <= 0&&newX>=0){
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
 	  newX = startX - 1;
 	  newY = startY;
 	  
-	  if(board[newY][newX] ==0&& newX>= 0){
+	  if(board[newY][newX] <=0&& newX>= 0){
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
 	  newX = startX;
 	  newY = startY+1;
 	  
-	  if(board[newY][newX] == 0&&newY>=0){
+	  if(board[newY][newX] <= 0&&newY>=0){
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
 	  newX = startX;
 	  newY = startY-1;
 	  
-	  if(board[newY][newX] ==0&& newY>= 0){
+	  if(newY>= 0&&board[newY][newX] <=0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX + 1;
+	  newY = startY + 1;
+	  if(newY>=0 && newX>=0&& board[newY][newX] <= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+
+	  }
+	  newX = startX -1;
+	  newY = startY -1;
+	  if(newY>=0 && newX>=0&& board[newY][newX] <= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX - 1;
+	  newY = startY + 1;
+	  if(newY>=0 && newX>=0&& board[newY][newX] <= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+
+	  }
+	  newX = startX +1;
+	  newY = startY -1;
+	  if(newY>=0 && newX>=0&& board[newY][newX] <= 0){
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
 	  
-	  
-	  
   }//end white king
+  else if(board[y][x]==-6){
+	  selectedPiece = -6;
+	  int newX = startX+1;
+	  int newY = startY;
 	  
+	  if(board[newY][newX] <= 0&&newX<=7){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX - 1;
+	  newY = startY;
+	  
+	  if(board[newY][newX] >=0&& newX<= 7){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY+1;
+	  
+	  if(newY<=7&&board[newY][newX] >= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX;
+	  newY = startY-1;
+	  
+	  if(newY<= 7&&board[newY][newX] >=0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX + 1;
+	  newY = startY + 1;
+	  if(newY<=7 && newX<=7&& board[newY][newX] >= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+
+	  }
+	  newX = startX -1;
+	  newY = startY -1;
+	  if(newY<=7 && newX<=7&& board[newY][newX] >= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  newX = startX - 1;
+	  newY = startY + 1;
+	  if(newY<=7 && newX<=7&& board[newY][newX] >= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+
+	  }
+	  newX = startX +1;
+	  newY = startY -1;
+	  if(newY<=7 && newX<=7&& board[newY][newX] >= 0){
+		  legalMoves.add(newY + " " + newX);
+		  System.out.println("Legal move: ("+ newY + ","+newX+")");
+	  }
+	  
+  }//end black king
 	  
   
   
