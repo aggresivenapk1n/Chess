@@ -24,6 +24,7 @@ public class Chess extends JApplet {
  int[][] board = new int[8][8];
  private int selectedPiece = -1;
  private int startX,startY = 0;
+ private boolean whitesTurn = true;
  ArrayList<String> legalMoves = new ArrayList<String>();
  
 
@@ -85,11 +86,94 @@ public class Chess extends JApplet {
         g.fillRect(0, 0, 800, 800);
 
         g.setColor(Color.BLACK);
+        for(int j = 0; j < 8; j++) {
+        	for(int i = j % 2; i <= 7; i+= 2 ) {
+        		
+        		g.setColor(Color.lightGray);
+        		g.fillRect(35*i + 50, 35*j+50, 35,35);
+        		
+        	}
+        }
 
 
         for(int i =0;i<9;i++) {
+        	g.setColor(Color.BLACK);
             g.drawLine((35*i)+50, 50, (35*i)+50, 330);
             g.drawLine(50, (35*i)+50, 330, (35*i)+50);
+            
+        }
+        for(int j = 0; j < 8; j++) {
+        	for(int k = 0; k < 8; k++) {
+        		
+        		g.setColor(Color.BLACK);
+        		
+        		if(board[j][k] == 1) {
+        			g.setColor(Color.WHITE);
+        			g.fillRect(35*k + 55, 35*j+55, 10,10);
+        		}
+        		
+        		if(board[j][k] == 2) {
+        			g.setColor(Color.WHITE);
+        			g.fillRect(35*k + 55, 35*j+55, 10,20);
+        		}
+        		
+        		if(board[j][k] == 3) {
+        			g.setColor(Color.WHITE);
+        			g.fillOval(35*k + 55, 35*j+55, 15, 15);
+        		}
+        		
+        		if(board[j][k] == 4) {
+        			g.setColor(Color.WHITE);
+        			g.fillRect(35*k + 55, 35*j+55, 15,15);
+        		}
+        		
+        		if(board[j][k] == 5) {
+        			g.setColor(Color.WHITE);
+        			
+        			g.fillRoundRect(35*k + 55, 35*j+55, 20,20, 10, 10);
+        		}
+        		
+        		if(board[j][k] == 6) {
+        			g.setColor(Color.WHITE);
+        			g.fillOval(35*k + 55, 35*j+55, 25, 25);
+        		}
+        		//end white drawing
+        		
+        		if(board[j][k] == -1) {
+        			g.setColor(Color.BLACK);
+        			g.fillRect(35*k + 55, 35*j+55, 10,10);
+        		}
+        		
+        		if(board[j][k] == -2) {
+        			g.setColor(Color.BLACK);
+//        			int[] knightY = {35*k + 55,35*k + 55+10,35*k + 55};
+//        			int[] knightX = {35*k + 55,35*k + 55+10,35*k + 55+20};
+//        			g.drawPolygon(knightX,knightY, 3);
+        			g.fillRect(35*k + 55, 35*j+55, 10,20);
+        		}
+        		
+        		if(board[j][k] == -3) {
+        			g.setColor(Color.BLACK);
+        			g.fillOval(35*k + 55, 35*j+55, 15, 15);
+        			
+        		}
+        		
+        		if(board[j][k] == -4) {
+        			g.setColor(Color.BLACK);
+        			g.fillRect(35*k + 55, 35*j+55, 15,15);
+        		}
+        		
+        		if(board[j][k] == -5) {
+        			g.setColor(Color.BLACK);
+        			g.fillRoundRect(35*k + 55, 35*j+55, 20,20, 10, 10);
+        		}
+        		
+        		if(board[j][k] == -6) {
+        			g.setColor(Color.BLACK);
+        			g.fillOval(35*k + 55, 35*j+55, 25, 25);
+        		}
+        		//end black drawing
+        	}
         }
 
     }
@@ -126,92 +210,76 @@ public class Chess extends JApplet {
 	  selectedPiece =-5;
 	  boolean bothlegal = false;
 	  if(e.getX() > 50 && e.getX() <=85) {
-	   space +=("A");
-	   bothlegal = true;
-	   x=0;
-	  }
-	  else if(e.getX() > 85 && e.getX() <=120) {
-	   space +=("B");
-	   bothlegal = true;
-	   x=1;
-	  }
-	  else if(e.getX() > 120 && e.getX() <=155) {
-	   space +=("C");
-	   bothlegal = true;
-	   x=2;
-	  }
-	  else if(e.getX() > 155 && e.getX() <= 190) {
-	   space +=("D");
-	   bothlegal = true;
-	   x=3;
-	  }
-	  else if(e.getX() > 190 && e.getX() <= 225) {
-	   space +=("E");
-	   bothlegal = true;
-	   x=4;
-	  }
-	  else if(e.getX() > 225 && e.getX() <= 260) {
-	   space +=("F");
-	   bothlegal = true;
-	   x=5;
-	  }
-	  else if(e.getX() > 260 && e.getX() <= 295) {
-	   space +=("G");
-	   bothlegal = true;
-	   x=6;
-	  }
-	  else if(e.getX() > 295 && e.getX() <= 330) {
-	   space +=("H");
-	   bothlegal = true;
-	   x=7;
-	  }
-	  else {
+		   space +=("A");
+		   bothlegal = true;
+		   x=0;
+	  }else if(e.getX() > 85 && e.getX() <=120) {
+		   space +=("B");
+		   bothlegal = true;
+		   x=1;
+	  }else if(e.getX() > 120 && e.getX() <=155) {
+		   space +=("C");
+		   bothlegal = true;
+		   x=2;
+	  }else if(e.getX() > 155 && e.getX() <= 190) {
+		   space +=("D");
+		   bothlegal = true;
+		   x=3;
+	  }else if(e.getX() > 190 && e.getX() <= 225) {
+		   space +=("E");
+		   bothlegal = true;
+		   x=4;
+	  }else if(e.getX() > 225 && e.getX() <= 260) {
+		   space +=("F");
+		   bothlegal = true;
+		   x=5;
+	  }else if(e.getX() > 260 && e.getX() <= 295) {
+		   space +=("G");
+		   bothlegal = true;
+		   x=6;
+	  }else if(e.getX() > 295 && e.getX() <= 330) {
+		   space +=("H");
+		   bothlegal = true;
+		   x=7;
+	  }else {
 	   bothlegal = false;
 	  }
 	  if(bothlegal) {
 	   
 	  
 	  if(e.getY() > 50 && e.getY() <=85) {
-	   space +=("1");
-	   bothlegal = true;
-	   y=0;
-	  }
-	  else if(e.getY() > 85 && e.getY() <=120) {
-	   space +=("2");
-	   bothlegal = true;
-	   y=1;
-	  }
-	  else if(e.getY() > 120 && e.getY() <=155) {
-	   space +=("3");
-	   bothlegal = true;
-	   y=2;
-	  }
-	  else if(e.getY() > 155 && e.getY() <= 190) {
-	   space +=("4");
-	   bothlegal = true;
-	   y=3;
-	  }
-	  else if(e.getY() > 190 && e.getY() <= 225) {
-	   space +=("5");
-	   bothlegal = true;
-	   y=4;
-	  }
-	  else if(e.getY() > 225 && e.getY() <= 260) {
-	   space +=("6");
-	   bothlegal = true;
-	   y=5;
-	  }
-	  else if(e.getY() > 260 && e.getY() <= 295) {
-	   space +=("7");
-	   bothlegal = true;
-	   y=6;
-	  }
-	  else if(e.getY() > 295 && e.getY() <= 330) {
-	   space +=("8");
-	   bothlegal = true;
-	   y=7;
-	  }
-	  else {
+		   space +=("1");
+		   bothlegal = true;
+		   y=0;
+	  }else if(e.getY() > 85 && e.getY() <=120) {
+		   space +=("2");
+		   bothlegal = true;
+		   y=1;
+	  }else if(e.getY() > 120 && e.getY() <=155) {
+		   space +=("3");
+		   bothlegal = true;
+		   y=2;
+	  }else if(e.getY() > 155 && e.getY() <= 190) {
+		   space +=("4");
+		   bothlegal = true;
+		   y=3;
+	  }else if(e.getY() > 190 && e.getY() <= 225) {
+		   space +=("5");
+		   bothlegal = true;
+		   y=4;
+	  }else if(e.getY() > 225 && e.getY() <= 260) {
+		   space +=("6");
+		   bothlegal = true;
+		   y=5;
+	  }else if(e.getY() > 260 && e.getY() <= 295) {
+		   space +=("7");
+		   bothlegal = true;
+		   y=6;
+	  }else if(e.getY() > 295 && e.getY() <= 330) {
+		   space +=("8");
+		   bothlegal = true;
+		   y=7;
+	  }else {
 	   bothlegal = false;
 	  }
 	  
@@ -222,6 +290,11 @@ public class Chess extends JApplet {
   if(bothlegal)
   System.out.println(space);
   System.out.println(board[y][x]);
+  System.out.println("is it whites turn? "+ whitesTurn);
+  
+  if(whitesTurn&&board[startY][startX] >= 0){
+	  
+  }
   if(board[y][x] == -1 ) { 
 	  //System.out.println("Picked a -Pawn");
 	  selectedPiece = -1;
@@ -747,10 +820,12 @@ public class Chess extends JApplet {
   }//end white king
   else if(board[y][x]==-6){
 	  selectedPiece = -6;
+	  
+	  //left and right
 	  int newX = startX+1;
 	  int newY = startY;
 	  
-	  if(board[newY][newX] <= 0&&newX<=7){
+	  if(board[newY][newX] >= 0&&newX<=7){
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
@@ -761,6 +836,7 @@ public class Chess extends JApplet {
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
+	  //up and down
 	  newX = startX;
 	  newY = startY+1;
 	  
@@ -775,6 +851,7 @@ public class Chess extends JApplet {
 		  legalMoves.add(newY + " " + newX);
 		  System.out.println("Legal move: ("+ newY + ","+newX+")");
 	  }
+	  //diagonals
 	  newX = startX + 1;
 	  newY = startY + 1;
 	  if(newY<=7 && newX<=7&& board[newY][newX] >= 0){
@@ -957,7 +1034,30 @@ public class Chess extends JApplet {
 	  		firstMove = false;
 	  		System.out.println(firstMove);
 	  }
-	  	
+	//black knight
+		if(board[startY][startX]==-2&&!(board[y][x]<0)){
+			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
+	  			board[y][x] = -2;
+	  			board[startY][startX]=0;
+			}
+			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
+				board[y][x] = -2;
+	  			board[startY][startX]=0;}
+			}else{
+				board[startY][startX]=board[startY][startX];
+			}
+	//white knights association of americuh
+		if(board[startY][startX]==2&&!(board[y][x]>0)){
+			if((y==startY-2||y==startY+2)&&(x==startX+1||x==startX-1)){
+	  			board[y][x] = 2;
+	  			board[startY][startX]=0;
+			}
+			else if((x==startX-2||x==startX+2)&&(y==startY+1||y==startY-1)){
+				board[y][x] = 2;
+	  			board[startY][startX]=0;}
+			}else{
+				board[startY][startX]=board[startY][startX];
+			}
 	  System.out.println("Legal Moves String Size " + legalMoves.size());
 	  	for(int i = 0;i<legalMoves.size();i++){
 	  		System.out.println("Looking For (" + y+ "," +x+") Found: "+ legalMoves.get(i));
@@ -977,7 +1077,7 @@ public class Chess extends JApplet {
   		
 	  	
 	  	//print board
-  		
+  System.out.println("------------");
 	  	for(int j = 0; j < 8; j++) {
 	  		for(int k = 0; k < 8; k++) {
 	  			System.out.print(board[j][k] +", ");
@@ -987,7 +1087,14 @@ public class Chess extends JApplet {
 
 	  	System.out.println("------------");
 	  	legalMoves.clear();
+	  	if (!whitesTurn){
+	  		whitesTurn = true;
+	  	} else{
+	  		whitesTurn = false;
+	  	}
+	  	
    
+   repaint();
   	}//End Mouse Released
 }
 }
