@@ -1,4 +1,3 @@
-//Lang's version of Jason's Chess
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
